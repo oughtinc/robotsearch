@@ -75,7 +75,7 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.9"
-content-hash = "663896e3837342e89ef2536981b3f88dedf24d0ec998e235f9321f32a215357b"
+content-hash = "06b8a8267978bc49444aedcd0a5fd051ab2404bd34635b7734797425ed35ed20"
 
 [metadata.files]
 h5py = [

@@ -35,16 +35,21 @@ import glob
 from sklearn.base import ClassifierMixin
 from collections import Counter
 
+from typing import Any
 
 class RCTRobot:
 
     def __init__(self):
+        import time
+        tic = time.perf_counter()
         self.svm_clf = MiniClassifier(os.path.join(robotsearch.DATA_ROOT, 'rct/rct_svm_weights.npz'))
         self.svm_vectorizer = HashingVectorizer(binary=False, ngram_range=(1, 1), stop_words='english')
         with open(os.path.join(robotsearch.DATA_ROOT, 'rct/rct_model_calibration.json'), 'r') as f:
             self.constants = json.load(f)
+        toc = time.perf_counter()
+        print(f'Loading SVM and vectorizer and stuff took {toc - tic:0.4f}')
 
-    def predict(self, X: list[tuple[str, str]], filter_class="svm", filter_type="sensitive", raw_scores=False):
+    def predict(self, X: list[tuple[str, str]], filter_class="svm", filter_type="sensitive", raw_scores=False) -> dict[str, Any]:
         preds_l = {}
 
         # thresholds vary per article
