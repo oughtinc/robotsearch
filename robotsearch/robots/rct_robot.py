@@ -49,7 +49,7 @@ class RCTRobot:
         toc = time.perf_counter()
         print(f'Loading SVM and vectorizer and stuff took {toc - tic:0.4f}')
 
-    def predict(self, X: list[tuple[str, str]], filter_class="svm", filter_type="sensitive", raw_scores=False) -> dict[str, Any]:
+    def predict(self, X: list[tuple[str, str]], filter_class="svm", filter_type="sensitive") -> list[dict[str, Any]]:
         preds_l = {}
 
         # thresholds vary per article
@@ -72,11 +72,6 @@ class RCTRobot:
         preds_d =[dict(zip(preds_l,i)) for i in zip(*preds_l.values())]
 
         out = []
-
-        if raw_scores:
-            return {
-                    "svms": svm_preds,
-                    }
 
         else:
             for pred, threshold in zip(preds_d, thresholds):
