@@ -49,7 +49,7 @@ class RCTRobot:
         toc = time.perf_counter()
         print(f'Loading SVM and vectorizer and stuff took {toc - tic:0.4f}')
 
-    def predict(self, X: list[tuple[str, str]], filter_type="sensitive") -> list[bool]:
+    def predict(self, X: list[tuple[str, str]], filter_class="svm", filter_type="sensitive") -> list[bool]:
         preds_l = {}
 
         # thresholds vary per article
