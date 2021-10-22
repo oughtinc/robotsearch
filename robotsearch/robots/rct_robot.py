@@ -49,7 +49,7 @@ class RCTRobot:
         toc = time.perf_counter()
         print(f'Loading SVM and vectorizer and stuff took {toc - tic:0.4f}')
 
-    def predict(self, X: list[tuple[str, str]], filter_class="svm", filter_type="sensitive") -> list[dict[str, Any]]:
+    def predict(self, X: list[tuple[str, str]], filter_type="sensitive") -> list[bool]:
         preds_l = {}
 
         # thresholds vary per article
@@ -72,17 +72,15 @@ class RCTRobot:
         preds_d =[dict(zip(preds_l,i)) for i in zip(*preds_l.values())]
 
         out = []
-
-        else:
-            for pred, threshold in zip(preds_d, thresholds):
-                row = {}
-                row['model'] = filter_class
-                row['score'] = float(pred[row['model']])
-                row['threshold_type'] = filter_type
-                row['threshold_value'] = float(threshold)
-                row['is_rct'] = bool(row['score'] >= threshold)
-                row['preds'] = {k: float(v) for k, v in pred.items()}
-                out.append(row)
-            return out
+        for pred, threshold in zip(preds_d, thresholds):
+            row = {}
+            row['model'] = filter_class
+            row['score'] = float(pred[row['model']])
+            row['threshold_type'] = filter_type
+            row['threshold_value'] = float(threshold)
+            row['is_rct'] = bool(row['score'] >= threshold)
+            row['preds'] = {k: float(v) for k, v in pred.items()}
+            out.append(row)
+        return [row['is_rct'] for row in out]
 
 
