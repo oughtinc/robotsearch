@@ -1,4 +1,4 @@
-from robotsearch.robots.rct_robot import RCTRobot
+from robotsearch.rct_svm import RCTSVM
 
 examples = [(
     '''Does usage of a parachute in contrast to free fall prevent major trauma?: a prospective randomised-controlled trial in rag dolls.''',
@@ -70,7 +70,7 @@ examples = [(
 # }
 
 
-clf = RCTRobot()
+clf = RCTSVM(filter_type='precise')
 
-preds = clf.predict(examples, filter_type='precise')
-print([pred['is_rct'] for pred in preds])
+preds = clf.predict(examples)
+print(preds)
