@@ -1,6 +1,4 @@
 h5py
 numpy
-keras
-scikit
-learn
+scikit-learn
 scipy
