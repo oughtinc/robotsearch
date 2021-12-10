@@ -1,0 +1,6 @@
+h5py
+numpy
+keras
+scikit
+learn
+scipy

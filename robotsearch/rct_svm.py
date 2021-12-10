@@ -17,9 +17,7 @@ from sklearn.feature_extraction.text import HashingVectorizer
 
 from scipy.sparse import lil_matrix, hstack
 
-from typing import Any, Literal
 
-FilterType = Literal['precise', 'sensitive', 'balanced']
 
 class RCTSVM:
     # changes the cut-off for predicting True
@@ -34,12 +32,12 @@ class RCTSVM:
          "std":0.7812955939364481,
          "weight":1.0
       }
-    def __init__(self, filter_type: FilterType = 'sensitive'):
+    def __init__(self, filter_type):
         self.svm_clf = MiniClassifier(os.path.join(robotsearch.DATA_ROOT, 'rct_svm_weights.npz'))
         self.svm_vectorizer = HashingVectorizer(binary=False, ngram_range=(1, 1), stop_words='english')
         self.threshold = self.thresholds[filter_type]
 
-    def predict(self, X: list[tuple[str, str]]) -> list[bool]:
+    def predict(self, X):
         X_title_string = [title for (title, abstract) in X]
         X_title_abstract_string = [f'{title}\n\n{abstract}' for (title, abstract) in X]
 
