@@ -32,7 +32,7 @@ class RCTSVM:
          "std":0.7812955939364481,
          "weight":1.0
       }
-    def __init__(self, filter_type):
+    def __init__(self, filter_type='sensitive'):
         self.svm_clf = MiniClassifier(os.path.join(robotsearch.DATA_ROOT, 'rct_svm_weights.npz'))
         self.svm_vectorizer = HashingVectorizer(binary=False, ngram_range=(1, 1), stop_words='english')
         self.threshold = self.thresholds[filter_type]
